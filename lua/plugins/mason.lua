@@ -11,6 +11,8 @@ local servers = {
   "rust_analyzer",
   -- go
   "gopls",
+  -- svelte
+  "svelte",
 }
 
 return {
