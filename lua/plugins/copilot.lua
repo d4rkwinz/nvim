@@ -15,7 +15,7 @@ return {
       vim.cmd([[
         let g:copilot_assume_mapped = v:true
         let g:copilot_no_tab_map = v:true
-        imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")
+        imap <silent><script><expr> <C-z> copilot#Accept("\<CR>")
       ]])
 
       -- setup keymap

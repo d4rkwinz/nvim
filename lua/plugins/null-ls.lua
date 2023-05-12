@@ -113,7 +113,7 @@ return {
       }),
 
       -- go
-      b.diagnostics.revive,
+      b.diagnostics.staticcheck,
       b.formatting.gofmt,
 
       -- proto buf

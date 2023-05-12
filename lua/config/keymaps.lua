@@ -29,6 +29,9 @@ end
 -- Copy whole file content to clipboard with C-c
 keymap("n", "<C-c>", ":%y+<CR>", opts)
 
+-- Delete whole word backwards
+keymap("n", "<C-x>", "vbx", opts)
+
 -- Move live up or down
 -- moving
 keymap("n", "<A-Down>", ":m .+1<CR>", opts)

@@ -8,14 +8,14 @@ return {
       local go = require("go")
       go.setup({
         -- notify: use nvim-notify
-        notify = false,
+        notify = true,
         -- auto commands
-        auto_format = false,
+        auto_format = true,
         auto_lint = true,
         -- lint_prompt_style: qf (quickfix), vt (virtual text)
         lint_prompt_style = "vt",
         -- linters: revive, errcheck, staticcheck, golangci-lint
-        linter = "revive",
+        linter = "staticcheck",
         -- linter_flags: e.g., {revive = {'-config', '/path/to/config.yml'}}
         -- formatter: goimports, gofmt, gofumpt, lsp
         formatter = "gofmt",
