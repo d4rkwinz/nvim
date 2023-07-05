@@ -2,13 +2,13 @@ local keymap = vim.keymap.set
 
 return {
   {
-    "glepnir/lspsaga.nvim",
-    event = "BufRead",
+    'glepnir/lspsaga.nvim',
+    event = 'BufRead',
     config = true,
     dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
+      { 'nvim-tree/nvim-web-devicons' },
       --Please make sure you install markdown and markdown_inline parser
-      { "nvim-treesitter/nvim-treesitter" },
+      { 'nvim-treesitter/nvim-treesitter' },
     },
   },
 }

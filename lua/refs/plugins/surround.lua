@@ -1,9 +1,9 @@
 return {
   -- disable mini surround
-  { "echasnovski/mini.nvim", enabled = false },
+  { 'echasnovski/mini.nvim', enabled = false },
   {
-    "kylechui/nvim-surround",
-    version = "*",
+    'kylechui/nvim-surround',
+    version = '*',
     config = true,
   },
 }

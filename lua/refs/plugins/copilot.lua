@@ -1,13 +1,13 @@
 return {
   -- copilot
   {
-    "github/copilot.vim",
-    event = "VeryLazy",
+    'github/copilot.vim',
+    event = 'VeryLazy',
     config = function()
       -- For copilot.vim
       -- enable copilot for specific filetypes
       vim.g.copilot_filetypes = {
-        ["TelescopePrompt"] = false,
+        ['TelescopePrompt'] = false,
       }
 
       -- disable tab completion if you want to use tab for something else
@@ -27,9 +27,9 @@ return {
       -- let g:copilot_no_tab_map = v:true
 
       -- Copilot
-      keymap("i", "<C-j>", "<Plug>(copilot-next)", opts)
-      keymap("i", "<C-k>", "<Plug>(copilot-previous)", opts)
-      keymap("i", "<C-l>", "<Plug>(copilot-suggest)", opts)
+      keymap('i', '<C-j>', '<Plug>(copilot-next)', opts)
+      keymap('i', '<C-k>', '<Plug>(copilot-previous)', opts)
+      keymap('i', '<C-l>', '<Plug>(copilot-suggest)', opts)
     end,
   },
 }

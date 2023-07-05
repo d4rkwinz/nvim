@@ -1,44 +1,44 @@
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
+    'nvim-treesitter/nvim-treesitter',
     opts = {
       ensure_installed = {
-        "bash",
-        "regex",
-        "vim",
-        "lua",
-        "html",
-        "markdown",
-        "markdown_inline",
-        "css",
-        "typescript",
-        "tsx",
-        "javascript",
-        "json",
-        "json5",
-        "jsonc",
-        "graphql",
-        "prisma",
-        "rust",
-        "go",
-        "toml",
-        "c",
-        "proto",
-        "svelte",
+        'bash',
+        'regex',
+        'vim',
+        'lua',
+        'html',
+        'markdown',
+        'markdown_inline',
+        'css',
+        'typescript',
+        'tsx',
+        'javascript',
+        'json',
+        'json5',
+        'jsonc',
+        'graphql',
+        'prisma',
+        'rust',
+        'go',
+        'toml',
+        'c',
+        'proto',
+        'svelte',
       },
       auto_install = true,
       -- ensure_installed = "all", -- one of "all" or a list of languages
-      ignore_install = { "" }, -- List of parsers to ignore installing
+      ignore_install = { '' }, -- List of parsers to ignore installing
       sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
 
       highlight = {
         enable = true, -- false will disable the whole extension
-        disable = { "css" }, -- list of language that will be disabled
+        disable = { 'css' }, -- list of language that will be disabled
       },
       autopairs = {
         enable = true,
       },
-      indent = { enable = true, disable = { "python", "css" } },
+      indent = { enable = true, disable = { 'python', 'css' } },
 
       context_commentstring = {
         enable = true,

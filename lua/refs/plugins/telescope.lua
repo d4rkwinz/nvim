@@ -1,7 +1,7 @@
 return {
   -- change some telescope options and a keymap to browse plugin files
   {
-    "nvim-telescope/telescope.nvim",
+    'nvim-telescope/telescope.nvim',
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
@@ -14,9 +14,9 @@ return {
     -- change some options
     opts = {
       defaults = {
-        layout_strategy = "horizontal",
-        layout_config = { prompt_position = "top" },
-        sorting_strategy = "ascending",
+        layout_strategy = 'horizontal',
+        layout_config = { prompt_position = 'top' },
+        sorting_strategy = 'ascending',
         winblend = 0,
       },
     },
@@ -24,7 +24,7 @@ return {
 
   -- add telescope-fzf-native
   {
-    "telescope.nvim",
+    'telescope.nvim',
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
@@ -35,10 +35,10 @@ return {
       },
     },
     dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'make',
       config = function()
-        require("telescope").load_extension("fzf")
+        require('telescope').load_extension('fzf')
       end,
     },
   },
