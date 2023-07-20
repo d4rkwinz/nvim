@@ -40,6 +40,7 @@ imap({
   -- insert mode
   { '<C-x>', '<Bs>', opts(noremap) },
   { '<C-e>', '<End>', opts(noremap) },
+  { '<C-s>', cmd('write'), opts(noremap) },
   { 'jk', '<ESC>', opts(noremap) },
   { 'kj', '<ESC>', opts(noremap) },
 })

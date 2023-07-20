@@ -98,7 +98,15 @@ return {
         end,
       }),
       b.formatting.prettierd.with({
-        filetypes = { 'javascript', 'javascriptreact', 'json', 'jsonc', 'typescript', 'typescriptreact', 'svelte' },
+        filetypes = {
+          'javascript',
+          'javascriptreact',
+          'json',
+          'jsonc',
+          'typescript',
+          'typescriptreact',
+          'svelte',
+        },
         condition = function()
           return not rome_config_exists() and not deno_config_exists()
         end,
