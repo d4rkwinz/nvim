@@ -85,7 +85,7 @@ function config.null_ls()
       formatting.cljstyle,
       diagnostics.eslint,
       diagnostics.clj_kondo,
-      completion.spell,
+      -- completion.spell,
       code_actions.gitsigns,
     },
     on_attach = function(client, bufnr)
@@ -100,6 +100,33 @@ function config.null_ls()
         })
       end
     end,
+  })
+end
+
+function config.autoclose()
+  local autoclose = require('autoclose')
+  autoclose.setup({
+    keys = {
+      ['('] = { escape = false, close = true, pair = '()' },
+      ['['] = { escape = false, close = true, pair = '[]' },
+      ['{'] = { escape = false, close = true, pair = '{}' },
+
+      ['>'] = { escape = true, close = false, pair = '<>' },
+      [')'] = { escape = true, close = false, pair = '()' },
+      [']'] = { escape = true, close = false, pair = '[]' },
+      ['}'] = { escape = true, close = false, pair = '{}' },
+
+      ['"'] = { escape = true, close = true, pair = '""' },
+      ["'"] = { escape = true, close = true, pair = "''" },
+      ['`'] = { escape = true, close = true, pair = '``' },
+    },
+    options = {
+      disabled_filetypes = { 'text' },
+      disable_when_touch = false,
+      touch_regex = '[%w(%[{]',
+      pair_spaces = false,
+      auto_indent = true,
+    },
   })
 end
 

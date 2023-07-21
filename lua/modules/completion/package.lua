@@ -41,3 +41,8 @@ package({
   },
   config = conf.null_ls,
 })
+
+package({
+  'm4xshen/autoclose.nvim',
+  config = conf.autoclose,
+})
