@@ -79,14 +79,28 @@ function config.null_ls()
   null_ls.setup({
     debug = true,
     sources = {
-      formatting.prettier.with({ extra_args = { '--no-semi', '--single-quote', '--jsx-single-quote' } }),
-      formatting.eslint,
+      -- formatting.prettier.with({ extra_args = { '--no-semi', '--single-quote', '--jsx-single-quote' } }),
+      formatting.eslint_d,
+      formatting.prettierd,
+      -- formatting.prettierd.with({
+      --   filetypes = {
+      --     'css',
+      --     'scss',
+      --     'less',
+      --     'html',
+      --     'json',
+      --     'yaml',
+      --     'markdown',
+      --     'graphql',
+      --   },
+      -- }),
       formatting.stylua,
       formatting.cljstyle,
-      diagnostics.eslint,
+      diagnostics.eslint_d,
+      diagnostics.luacheck,
       diagnostics.clj_kondo,
-      -- completion.spell,
-      code_actions.gitsigns,
+      completion.luasnip,
+      code_actions.eslint_d,
     },
     on_attach = function(client, bufnr)
       if client.supports_method('textDocument/formatting') then
@@ -95,7 +109,7 @@ function config.null_ls()
           group = augroup,
           buffer = bufnr,
           callback = function()
-            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+            vim.lsp.buf.code_action({ context = { only = { 'source.fixAll' } }, apply = true })
           end,
         })
       end

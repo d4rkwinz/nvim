@@ -203,7 +203,7 @@ end
 function config.navigator()
   require('navigator').setup({
     lsp = {
-      format_on_save = true,
+      format_on_save = false,
       diagnostic = {
         virtual_text = false,
       },

@@ -42,6 +42,15 @@ package({
   config = conf.nvim_lsp,
 })
 
+package({
+  'pmizio/typescript-tools.nvim',
+  dependencies = {
+    { 'nvim-lua/plenary.nvim' },
+    { 'neovim/nvim-lspconfig' },
+  },
+  config = conf.nvim_lsp,
+})
+
 --[[ package({
   'nvimdev/lspsaga.nvim',
   cmd = 'Lspsaga term_toggle',

@@ -28,7 +28,7 @@ nmap({
   --- copy/patse a line to below
   { '<M-d>', 'yyp', opts(noremap) },
   { '<M-S-j>', 'ddjP', opts(noremap) },
-  { '<M-S-k>', 'ddkkP', opts(noremap) },
+  { '<M-S-k>', 'ddkP', opts(noremap) },
   -- window jump
   { '<C-h>', '<C-w>h', opts(noremap) },
   { '<C-l>', '<C-w>l', opts(noremap) },
@@ -62,4 +62,7 @@ nmap({
   { '<Leader>b', cmd('Telescope buffers'), opts(noremap, silent) },
   { '<Leader>f/', cmd('Telescope live_grep'), opts(noremap, silent) },
   { '<Leader>f.', cmd('Telescope find_files'), opts(noremap, silent) },
+  -- live-server
+  { '<Leader>lb', cmd('LiveServerStart'), opts(noremap, silent) },
+  { '<Leader>le', cmd('LiveServerStop'), opts(noremap, silent) },
 })
