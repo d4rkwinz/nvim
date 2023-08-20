@@ -192,6 +192,15 @@ gls.right[8] = {
 }
 
 gls.right[9] = {
+  CodeiumStatus = {
+    provider = function()
+      return vim.fn['codeium#GetStatusString']() .. ' '
+    end,
+    highlight = { colors.cyan, colors.bg },
+  },
+}
+
+gls.right[10] = {
   RainbowBlue = {
     provider = function()
       return ' ▊'

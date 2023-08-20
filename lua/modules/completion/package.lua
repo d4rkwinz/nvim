@@ -46,3 +46,9 @@ package({
   'm4xshen/autoclose.nvim',
   config = conf.autoclose,
 })
+
+package({
+  'Exafunction/codeium.vim',
+  event = 'BufEnter',
+  config = conf.codeium,
+})

@@ -58,6 +58,7 @@ nmap({
   { '<Leader>sl', cmd('SessionLoad'), opts(noremap, silent) },
   -- nvimtree
   { '<Leader>e', cmd('NvimTreeToggle'), opts(noremap, silent) },
+  { '<Leader>r', cmd('NvimTreeRefresh'), opts(noremap, silent) },
   -- Telescope
   { '<Leader>b', cmd('Telescope buffers'), opts(noremap, silent) },
   { '<Leader>f/', cmd('Telescope live_grep'), opts(noremap, silent) },
