@@ -2,8 +2,60 @@
   "contributes": {
     "snippets": [
       {
+        "language": "javascript",
+        "path": "./javascript/javascript.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./typescript/tsdoc.json"
+      },
+      {
         "language": "lua",
-        "path": "./lua.json"
+        "path": "./lua/lua.json"
+      },
+      {
+        "language": "lua",
+        "path": "./lua/luadoc.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/base.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/python.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/pydoc.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./typescript/typescript.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./typescript/tsdoc.json"
+      },
+      {
+        "language": "css",
+        "path": "./css.json"
+      },
+      {
+        "language": "go",
+        "path": "./go.json"
+      },
+      {
+        "language": "html",
+        "path": "./html.json"
+      },
+      {
+        "language": "markdown",
+        "path": "./markdown.json"
+      },
+      {
+        "language": "svekte",
+        "path": "./svelte.json"
       }
     ]
   }
