@@ -83,6 +83,17 @@ if vim.loop.os_uname().sysname == 'Darwin' then
     },
     cache_enabled = 0,
   }
-  vim.g.python_host_prog = '/usr/bin/python'
-  vim.g.python3_host_prog = '/usr/local/bin/python3'
+
+  local py_env_check = io.popen('echo $(which python) | tr -d "\n"')
+  local py_env = py_env_check:read('*a')
+  vim.g.python_host_prog = py_env
+
+  local py3_env_check = io.popen('echo $(which python3) | tr -d "\n"')
+  local py3_env = py3_env_check:read('*a')
+  vim.g.python3_host_prog = py3_env
+
+  -- refs
+  -- vim.g.python3_host_prog = '/opt/anaconda3/envs/py311/bin/python3'
+  -- vim.g.python_host_prog = '/usr/bin/python'
+  -- vim.g.python3_host_prog = '/usr/local/bin/python3'
 end
