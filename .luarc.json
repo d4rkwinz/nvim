@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime.version": "Lua 5.4",
+  "diagnostics.severity": {
+    "duplicate-set-field": "Hint"
+  },
+  "format.defaultConfig": {
+    "indent_style": "space",
+    "indent_size": "4"
+  },
+  "workspace.library": [
+    //    "path/to/library/directory"
+  ]
+}

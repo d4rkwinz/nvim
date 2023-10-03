@@ -5,304 +5,313 @@ local new_opts = keymap.new_opts
 local config = {}
 
 function config.nvim_lsp()
-  require('mason').setup()
-  local mason_language_servers = {
-    'bashls',
-    'clangd',
-    'gopls',
-    'cssls',
-    'docker_compose_language_service',
-    'dockerls',
-    'eslint',
-    'html',
-    'lemminx',
-    'lua_ls',
-    'marksman',
-    'pyright',
-    'rust_analyzer',
-    'sqlls',
-    'tailwindcss',
-    'tsserver',
-    'yamlls',
-    'zls',
-  }
+    require('mason').setup()
+    local mason_language_servers = {
+        'bashls',
+        'clangd',
+        'gopls',
+        'cssls',
+        'docker_compose_language_service',
+        'dockerls',
+        'eslint',
+        'html',
+        'lemminx',
+        'lua_ls',
+        'marksman',
+        'pyright',
+        'rust_analyzer',
+        'sqlls',
+        'tailwindcss',
+        'tsserver',
+        'yamlls',
+        'zls',
+    }
 
-  -- Language servers to eagerly install
-  require('mason-lspconfig').setup({
-    ensure_installed = mason_language_servers,
-  })
+    -- Language servers to eagerly install
+    require('mason-lspconfig').setup({
+        ensure_installed = mason_language_servers,
+    })
 
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  local lspconfig = require('lspconfig')
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local lspconfig = require('lspconfig')
 
-  --[[ vim.keymap.set('n', '<space>lf', function()
+    --[[ vim.keymap.set('n', '<space>lf', function()
     vim.lsp.buf.format({ async = true })
   end, new_opts(noremap, silent, 'LSP BUF: Format Code')) ]]
-  vim.keymap.set('n', '<space>of', vim.diagnostic.open_float, new_opts(noremap, silent, 'DIAGNOSTIC: Open Float'))
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, new_opts(noremap, silent, 'DIAGNOSTIC: Goto Previous Diagnostic'))
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, new_opts(noremap, silent, 'DIAGNOSTIC: Goto Next Diagnostic'))
-  vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, new_opts(noremap, silent, 'DIAGNOSTIC: Set Loc List'))
-  local on_attach = function()
-    vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-      callback = function(ev)
-        vim.api.nvim_buf_set_option(ev.buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        vim.api.nvim_buf_set_option(ev.buf, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
+    vim.keymap.set('n', '<space>of', vim.diagnostic.open_float, new_opts(noremap, silent, 'DIAGNOSTIC: Open Float'))
+    vim.keymap.set(
+        'n',
+        '[d',
+        vim.diagnostic.goto_prev,
+        new_opts(noremap, silent, 'DIAGNOSTIC: Goto Previous Diagnostic')
+    )
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, new_opts(noremap, silent, 'DIAGNOSTIC: Goto Next Diagnostic'))
+    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, new_opts(noremap, silent, 'DIAGNOSTIC: Set Loc List'))
+    local on_attach = function()
+        vim.api.nvim_create_autocmd('LspAttach', {
+            group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+            callback = function(ev)
+                vim.api.nvim_buf_set_option(ev.buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+                vim.api.nvim_buf_set_option(ev.buf, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
-        -- local opts = { noremap = true, buffer = ev.buf }
-        vim.keymap.set(
-          'n',
-          'gD',
-          vim.lsp.buf.declaration,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Go To Declaration' }
-        )
-        vim.keymap.set(
-          'n',
-          'gd',
-          vim.lsp.buf.definition,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Go To Definition' }
-        )
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Hover' })
-        vim.keymap.set(
-          'n',
-          'gI',
-          vim.lsp.buf.implementation,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Go To Implementation' }
-        )
-        vim.keymap.set(
-          'n',
-          '<C-k>',
-          vim.lsp.buf.signature_help,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Signature Help' }
-        )
-        vim.keymap.set(
-          'n',
-          '<space>wa',
-          vim.lsp.buf.add_workspace_folder,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Add Workspace Folder' }
-        )
-        vim.keymap.set(
-          'n',
-          '<space>wr',
-          vim.lsp.buf.remove_workspace_folder,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Remove Workspace Folder' }
-        )
-        vim.keymap.set('n', '<space>wl', function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, { noremap = true, buffer = ev.buf, desc = 'LSP BUF: List Workspace Folder' })
-        vim.keymap.set(
-          'n',
-          '<space>D',
-          vim.lsp.buf.type_definition,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Type Definition' }
-        )
-        vim.keymap.set(
-          'n',
-          '<space>rn',
-          vim.lsp.buf.rename,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Rename' }
-        )
-        vim.keymap.set(
-          { 'n', 'v' },
-          '<space>ca',
-          vim.lsp.buf.code_action,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Code Action' }
-        )
-        vim.keymap.set(
-          'n',
-          'gr',
-          vim.lsp.buf.references,
-          { noremap = true, buffer = ev.buf, desc = 'LSP BUF: References' }
-        )
-        vim.keymap.set(
-          'n',
-          '<space>ts',
-          '<cmd>TSToolsOrganizeImports<CR> <cmd>TSToolsSortImports<CR>',
-          { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Format' }
-        )
+                -- local opts = { noremap = true, buffer = ev.buf }
+                vim.keymap.set(
+                    'n',
+                    'gD',
+                    vim.lsp.buf.declaration,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Go To Declaration' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'gd',
+                    vim.lsp.buf.definition,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Go To Definition' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'K',
+                    vim.lsp.buf.hover,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Hover' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'gI',
+                    vim.lsp.buf.implementation,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Go To Implementation' }
+                )
+                vim.keymap.set(
+                    'n',
+                    '<C-k>',
+                    vim.lsp.buf.signature_help,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Signature Help' }
+                )
+                vim.keymap.set(
+                    'n',
+                    '<space>wa',
+                    vim.lsp.buf.add_workspace_folder,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Add Workspace Folder' }
+                )
+                vim.keymap.set(
+                    'n',
+                    '<space>wr',
+                    vim.lsp.buf.remove_workspace_folder,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Remove Workspace Folder' }
+                )
+                vim.keymap.set('n', '<space>wl', function()
+                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                end, { noremap = true, buffer = ev.buf, desc = 'LSP BUF: List Workspace Folder' })
+                vim.keymap.set(
+                    'n',
+                    '<space>D',
+                    vim.lsp.buf.type_definition,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Type Definition' }
+                )
+                vim.keymap.set(
+                    'n',
+                    '<space>rn',
+                    vim.lsp.buf.rename,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Rename' }
+                )
+                vim.keymap.set(
+                    { 'n', 'v' },
+                    '<space>ca',
+                    vim.lsp.buf.code_action,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: Code Action' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'gr',
+                    vim.lsp.buf.references,
+                    { noremap = true, buffer = ev.buf, desc = 'LSP BUF: References' }
+                )
+                vim.keymap.set(
+                    'n',
+                    '<space>ts',
+                    '<cmd>TSToolsOrganizeImports<CR> <cmd>TSToolsSortImports<CR>',
+                    { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Format' }
+                )
 
-        -- typescript-tools
-        vim.keymap.set(
-          'n',
-          'tso',
-          '<cmd>TSToolsOrganizeImports<CR>',
-          { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Organize Imports' }
-        )
-        vim.keymap.set(
-          'n',
-          'tsa',
-          '<cmd>TSToolsAddMissingImports<CR>',
-          { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Add Missing Imports' }
-        )
-        vim.keymap.set(
-          'n',
-          'tsf',
-          '<cmd>TSToolsFixAll<CR>',
-          { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Fix All' }
-        )
-        vim.keymap.set(
-          'n',
-          'tsz',
-          '<cmd>TSToolsGoToSourceDefinition<CR>',
-          { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Goto Definition' }
-        )
-      end,
+                -- typescript-tools
+                vim.keymap.set(
+                    'n',
+                    'tso',
+                    '<cmd>TSToolsOrganizeImports<CR>',
+                    { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Organize Imports' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'tsa',
+                    '<cmd>TSToolsAddMissingImports<CR>',
+                    { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Add Missing Imports' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'tsf',
+                    '<cmd>TSToolsFixAll<CR>',
+                    { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Fix All' }
+                )
+                vim.keymap.set(
+                    'n',
+                    'tsz',
+                    '<cmd>TSToolsGoToSourceDefinition<CR>',
+                    { noremap = true, buffer = ev.buf, desc = 'LSP TSSERVER: Goto Definition' }
+                )
+            end,
+        })
+    end
+
+    -- lsp_signature UI tweaks
+    -- require('lsp_signature').setup({
+    --     bind = true,
+    --     handler_opts = {
+    --         border = 'rounded',
+    --     },
+    -- })
+
+    -- LSP diagnostics
+    vim.opt.updatetime = 250
+    vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false,
+        underline = true,
+        signs = true,
     })
-  end
 
-  -- lsp_signature UI tweaks
-  require('lsp_signature').setup({
-    bind = true,
-    handler_opts = {
-      border = 'rounded',
-    },
-  })
+    vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 
-  -- LSP diagnostics
+    -- Configure individual language servers here
+    for _, server in pairs(mason_language_servers) do
+        lspconfig[server].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+    end
 
-  vim.opt.updatetime = 250
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    underline = true,
-    signs = true,
-  })
-
-  vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
-
-  -- Configure individual language servers here
-  for _, server in pairs(mason_language_servers) do
-    lspconfig[server].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    lspconfig.gopls.setup({
+        cmd = { 'gopls' },
+        filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+        capabilities = capabilities,
+        on_attach = on_attach,
+        init_options = {
+            usePlaceholders = true,
+            completeUnimported = true,
+        },
+        settings = {
+            gopls = {
+                analyses = {
+                    nilness = true,
+                    unusedparams = true,
+                    unusedwrite = true,
+                    useany = true,
+                },
+                experimentalPostfixCompletions = true,
+                gofumpt = true,
+                semanticTokens = true,
+                staticcheck = true,
+                usePlaceholders = true,
+                hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                },
+            },
+        },
     })
-  end
 
-  lspconfig.gopls.setup({
-    cmd = { 'gopls' },
-    filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
-    capabilities = capabilities,
-    on_attach = on_attach,
-    init_options = {
-      usePlaceholders = true,
-      completeUnimported = true,
-    },
-    settings = {
-      gopls = {
-        analyses = {
-          nilness = true,
-          unusedparams = true,
-          unusedwrite = true,
-          useany = true,
+    lspconfig.lua_ls.setup({
+        on_attach = on_attach,
+        settings = {
+            Lua = {
+                diagnostics = {
+                    enable = true,
+                    globals = { 'vim' },
+                },
+                runtime = {
+                    version = 'LuaJIT',
+                    path = vim.split(package.path, ';'),
+                },
+                workspace = {
+                    library = {
+                        vim.env.VIMRUNTIME,
+                        vim.env.HOME .. '/.local/share/nvim/lazy/emmylua-nvim',
+                    },
+                    checkThirdParty = false,
+                },
+                completion = {
+                    callSnippet = 'Replace',
+                },
+            },
         },
-        experimentalPostfixCompletions = true,
-        gofumpt = true,
-        semanticTokens = true,
-        staticcheck = true,
-        usePlaceholders = true,
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-      },
-    },
-  })
+    })
 
-  lspconfig.lua_ls.setup({
-    on_attach = on_attach,
-    settings = {
-      Lua = {
-        diagnostics = {
-          enable = true,
-          globals = { 'vim' },
+    lspconfig.clangd.setup({
+        on_attach = on_attach,
+        cmd = {
+            'clangd',
+            '--background-index',
+            '--clang-tidy',
+            '--header-insertion=iwyu',
         },
-        runtime = {
-          version = 'LuaJIT',
-          path = vim.split(package.path, ';'),
-        },
-        workspace = {
-          library = {
-            vim.env.VIMRUNTIME,
-            vim.env.HOME .. '/.local/share/nvim/lazy/emmylua-nvim',
-          },
-          checkThirdParty = false,
-        },
-        completion = {
-          callSnippet = 'Replace',
-        },
-      },
-    },
-  })
+    })
 
-  lspconfig.clangd.setup({
-    on_attach = on_attach,
-    cmd = {
-      'clangd',
-      '--background-index',
-      '--clang-tidy',
-      '--header-insertion=iwyu',
-    },
-  })
+    lspconfig.rust_analyzer.setup({
+        on_attach = on_attach,
+        settings = {
+            ['rust-analyzer'] = {
+                assist = {
+                    importEnforceGranularity = true,
+                    importPrefix = 'crate',
+                },
+                imports = {
+                    granularity = {
+                        group = 'module',
+                    },
+                    prefix = 'self',
+                },
+                cargo = {
+                    allFeatures = true,
+                    buildScripts = {
+                        enable = true,
+                    },
+                },
+                checkOnSave = {
+                    -- default: `cargo check`
+                    -- command = "clippy"
+                    command = 'cargo check',
+                },
+                procMacro = {
+                    enable = true,
+                },
+                inlayHints = {
+                    lifetimeElisionHints = {
+                        enable = true,
+                        useParameterNames = true,
+                    },
+                },
+            },
+        },
+    })
 
-  lspconfig.rust_analyzer.setup({
-    on_attach = on_attach,
-    settings = {
-      ['rust-analyzer'] = {
-        assist = {
-          importEnforceGranularity = true,
-          importPrefix = 'crate',
+    lspconfig.tsserver.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+            javascript = {
+                referencesCodeLens = { enabled = true, showOnAllFunctions = true },
+                suggest = { completeFunctionCalls = true },
+            },
+            typescript = { updateImportsOnFileMove = { enabled = 'always' } },
         },
-        imports = {
-          granularity = {
-            group = 'module',
-          },
-          prefix = 'self',
-        },
-        cargo = {
-          allFeatures = true,
-          buildScripts = {
-            enable = true,
-          },
-        },
-        checkOnSave = {
-          -- default: `cargo check`
-          -- command = "clippy"
-          command = 'cargo check',
-        },
-        procMacro = {
-          enable = true,
-        },
-        inlayHints = {
-          lifetimeElisionHints = {
-            enable = true,
-            useParameterNames = true,
-          },
-        },
-      },
-    },
-  })
+        flags = { debounce_text_changes = 150 },
+    })
 
-  lspconfig.tsserver.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      javascript = {
-        referencesCodeLens = { enabled = true, showOnAllFunctions = true },
-        suggest = { completeFunctionCalls = true },
-      },
-      typescript = { updateImportsOnFileMove = { enabled = 'always' } },
-    },
-    flags = { debounce_text_changes = 150 },
-  })
-
-  require('typescript-tools').setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
+    require('typescript-tools').setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
 end
 
 -- function config.nvim_lspsaga()

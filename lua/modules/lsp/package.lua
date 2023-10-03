@@ -29,26 +29,26 @@ local conf = require('modules.lsp.config')
 end ]]
 
 package({
-  'neovim/nvim-lspconfig',
-  -- ft = lsp_fts(),
-  dependencies = {
-    {
-      'williamboman/mason.nvim',
-      build = ':MasonUpdate',
+    'neovim/nvim-lspconfig',
+    -- ft = lsp_fts(),
+    dependencies = {
+        {
+            'williamboman/mason.nvim',
+            build = ':MasonUpdate',
+        },
+        { 'williamboman/mason-lspconfig.nvim' },
+        { 'ray-x/lsp_signature.nvim' },
     },
-    { 'williamboman/mason-lspconfig.nvim' },
-    { 'ray-x/lsp_signature.nvim' },
-  },
-  config = conf.nvim_lsp,
+    config = conf.nvim_lsp,
 })
 
 package({
-  'pmizio/typescript-tools.nvim',
-  dependencies = {
-    { 'nvim-lua/plenary.nvim' },
-    { 'neovim/nvim-lspconfig' },
-  },
-  config = conf.nvim_lsp,
+    'pmizio/typescript-tools.nvim',
+    dependencies = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'neovim/nvim-lspconfig' },
+    },
+    config = conf.nvim_lsp,
 })
 
 --[[ package({

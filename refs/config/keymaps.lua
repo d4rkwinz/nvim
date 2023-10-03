@@ -14,16 +14,16 @@ keymap('i', 'jk', '<ESC>', opts)
 
 -- Close buffers
 if Util.has('mini.bufremove') then
-  keymap('n', '<S-q>', function()
-    require('mini.bufremove').delete(0, false)
-    local bufs = vim.fn.getbufinfo({ buflisted = true })
-    -- open alpha if no buffers are left
-    if not bufs[2] and Util.has('alpha-nvim') then
-      require('alpha').start(true)
-    end
-  end, opts)
+    keymap('n', '<S-q>', function()
+        require('mini.bufremove').delete(0, false)
+        local bufs = vim.fn.getbufinfo({ buflisted = true })
+        -- open alpha if no buffers are left
+        if not bufs[2] and Util.has('alpha-nvim') then
+            require('alpha').start(true)
+        end
+    end, opts)
 else
-  keymap('n', '<S-q>', '<cmd>bd<CR>', opts)
+    keymap('n', '<S-q>', '<cmd>bd<CR>', opts)
 end
 
 -- Copy whole file content to clipboard with C-c
@@ -43,49 +43,49 @@ keymap('v', '<A-Up>', ":m '<-2<CR>gv=gv", opts)
 
 -- NullLs Info keymap
 if Util.has('null-ls.nvim') then
-  keymap('n', '<leader>cn', '<cmd>NullLsInfo<CR>', opts)
+    keymap('n', '<leader>cn', '<cmd>NullLsInfo<CR>', opts)
 end
 
 -- LspSaga
 if Util.has('lspsaga.nvim') then
-  -- when you use action in finder like open vsplit then you can
-  keymap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>')
+    -- when you use action in finder like open vsplit then you can
+    keymap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>')
 
-  -- Code action
-  keymap({ 'n', 'v' }, 'gla', '<cmd>Lspsaga code_action<CR>')
+    -- Code action
+    keymap({ 'n', 'v' }, 'gla', '<cmd>Lspsaga code_action<CR>')
 
-  -- Rename all occurrences of the hovered word for the entire file
-  keymap('n', 'glr', '<cmd>Lspsaga rename<CR>')
+    -- Rename all occurrences of the hovered word for the entire file
+    keymap('n', 'glr', '<cmd>Lspsaga rename<CR>')
 
-  -- Rename all occurrences of the hovered word for the selected files
-  keymap('n', 'glR', '<cmd>Lspsaga rename ++project<CR>')
+    -- Rename all occurrences of the hovered word for the selected files
+    keymap('n', 'glR', '<cmd>Lspsaga rename ++project<CR>')
 
-  -- Peek definition
-  keymap('n', 'gld', '<cmd>Lspsaga peek_definition<CR>')
+    -- Peek definition
+    keymap('n', 'gld', '<cmd>Lspsaga peek_definition<CR>')
 
-  -- Diagnostic jump can use `<c-o>` to jump back
-  keymap('n', '[e', '<cmd>Lspsaga diagnostic_jump_prev<CR>')
-  keymap('n', ']e', '<cmd>Lspsaga diagnostic_jump_next<CR>')
+    -- Diagnostic jump can use `<c-o>` to jump back
+    keymap('n', '[e', '<cmd>Lspsaga diagnostic_jump_prev<CR>')
+    keymap('n', ']e', '<cmd>Lspsaga diagnostic_jump_next<CR>')
 
-  -- Diagnostic jump with filters such as only jumping to an error
-  keymap('n', '[E', function()
-    require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-  end)
-  keymap('n', ']E', function()
-    require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR })
-  end)
+    -- Diagnostic jump with filters such as only jumping to an error
+    keymap('n', '[E', function()
+        require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    end)
+    keymap('n', ']E', function()
+        require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR })
+    end)
 
-  -- Toggle Outline
-  keymap('n', '<leader>o', '<cmd>Lspsaga outline<CR>')
+    -- Toggle Outline
+    keymap('n', '<leader>o', '<cmd>Lspsaga outline<CR>')
 
-  -- Callhierarchy
-  keymap('n', '<Leader>ci', '<cmd>Lspsaga incoming_calls<CR>')
-  keymap('n', '<Leader>co', '<cmd>Lspsaga outgoing_calls<CR>')
+    -- Callhierarchy
+    keymap('n', '<Leader>ci', '<cmd>Lspsaga incoming_calls<CR>')
+    keymap('n', '<Leader>co', '<cmd>Lspsaga outgoing_calls<CR>')
 end
 
 -- Trouble
 -- Add keymap only show FIXME
 if Util.has('todo-comments.nvim') then
-  -- show fixme on telescope
-  keymap('n', '<leader>xf', '<cmd>TodoTelescope keywords=FIX,FIXME<CR>')
+    -- show fixme on telescope
+    keymap('n', '<leader>xf', '<cmd>TodoTelescope keywords=FIX,FIXME<CR>')
 end
